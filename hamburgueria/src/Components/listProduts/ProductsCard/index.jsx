@@ -1,7 +1,7 @@
 import React from "react";
 import { Slyledli, Containercontent } from "./Style";
 
-export function ProductsCards({ product, setcurrentSale, currentSale }) {
+export function ProductsCards({ product, setcurrentSale, currentSale, setsearch,searchbtn }) {
   return (
     <Slyledli>
       <img src={product.img} />
@@ -12,6 +12,8 @@ export function ProductsCards({ product, setcurrentSale, currentSale }) {
         <button
           onClick={() => {
             setcurrentSale([...currentSale, product]);
+            setsearch("")
+            searchbtn(false)
           }}
         >
           Adicionar

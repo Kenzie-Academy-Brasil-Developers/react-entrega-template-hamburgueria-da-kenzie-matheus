@@ -32,9 +32,8 @@ export const Searchbar = styled.div`
   border: 2px solid var(--grey-20);
 
   input {
-    border: none;
+    border: transparent;
     width: 100%;
-    color: #e0e0e0;
   }
 
   button {

@@ -12,11 +12,13 @@ function App() {
   const [productslist, setproductsList] = useState([]);
   const [currentSale, setcurrentSale] = useState([]);
   const [search, setsearch] = useState("");
+  const [filterProducts , setfilterProducts] = useState([]);
 
   const getProducts = async () => {
     try {
       const response = await api.get("products");
       setproductsList(response.data);
+      setfilterProducts(response.data)
     } catch (error) {
       console.log(error);
     }
@@ -25,16 +27,29 @@ function App() {
     getProducts();
   }, []);
 
-  function searchbtn() {
-    const filterresult = productslist.filter((product) => {
-      if (product.name === search) {
-        return product;
-      } else if (product.category === search) {
-        return product;
-      }
-    });
-    setproductsList(filterresult);
+
+  function searchbtn(value = false) {
+    console.log(value)
+   if(!value){
+    setfilterProducts(productslist)
+    return
+   }
+    if(search !== ""){
+      const filterresult = productslist.filter((product) => {
+        if (product.name === search) {
+          return product;
+          
+        } else if (product.category === search) {
+          return product;
+        }
+        
+      });
+      setfilterProducts(filterresult)
+    }else{
+      setfilterProducts(productslist)
+    }
   }
+
 
   return (
     <div className="App">
@@ -49,6 +64,7 @@ function App() {
                 onChange={(event) => {
                   setsearch(event.target.value);
                 }}
+                value = { search }
               />
               <button onClick={searchbtn}>Pesquisar</button>
             </Searchbar>
@@ -58,9 +74,11 @@ function App() {
 
       <Slyleddiv>
         <Products
-          productslist={productslist}
+          productslist={filterProducts}
           currentSale={currentSale}
           setcurrentSale={setcurrentSale}
+          setsearch={setsearch}
+          searchbtn={searchbtn}
         />
         <CarrinoDeCompras
           productslist={productslist}

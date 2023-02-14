@@ -2,7 +2,7 @@ import React from "react";
 import { ProductsCards } from "./ProductsCard";
 import { Ulproducts } from "./Style";
 
-export function Products({ productslist, currentSale, setcurrentSale }) {
+export function Products({ productslist, currentSale, setcurrentSale, setsearch, searchbtn}) {
   return (
     <Ulproducts>
       {productslist.map((product) => {
@@ -12,6 +12,8 @@ export function Products({ productslist, currentSale, setcurrentSale }) {
             product={product}
             setcurrentSale={setcurrentSale}
             currentSale={currentSale}
+            setsearch={setsearch}
+            searchbtn={searchbtn}
           />
         );
       })}
